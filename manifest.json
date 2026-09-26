@@ -1,0 +1,11 @@
+{
+  "name": "Tap Hunter",
+  "short_name": "Tap Hunter",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#080b12",
+  "theme_color": "#111827",
+  "icons": [
+    {"src":"icon.png","sizes":"180x180","type":"image/png","purpose":"any maskable"}
+  ]
+}
