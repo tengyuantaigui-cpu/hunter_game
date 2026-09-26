@@ -50,15 +50,15 @@
   display: block;
   width: 100%;
   height: 100%;
-  border-radius: 42% 42% 36% 36% / 26% 26% 74% 74%;
+  border-radius: 52% 48% 48% 52% / 42% 42% 58% 58%;
   overflow: visible;
   background:
-    linear-gradient(180deg, #d6f2a3 0%, #a9d36b 28%, #7baa52 100%);
-  border: 4px solid rgba(70, 93, 39, 0.9);
+    linear-gradient(180deg, #e5f7b4 0%, #b5df73 28%, #7ca94f 100%);
+  border: 4px solid rgba(81, 109, 49, 0.9);
   box-shadow:
-    inset -14px -14px 0 rgba(110, 146, 65, 0.18),
-    inset 12px 12px 0 rgba(255, 255, 255, 0.16),
-    0 18px 28px rgba(0, 0, 0, 0.2);
+    inset -14px -14px 0 rgba(120, 166, 82, 0.18),
+    inset 12px 12px 0 rgba(255,255,255,0.12),
+    0 18px 28px rgba(0,0,0,0.18);
   clip-path: none !important;
   transform-origin: center bottom;
   animation: slimeCuteBob 3s ease-in-out infinite alternate;
@@ -66,8 +66,8 @@
 
 .enemy-button.slime .enemy-body {
   border-radius: 56% 44% 52% 48% / 46% 54% 46% 54%;
-  background: linear-gradient(180deg, #dffbaf 0%, #b1ec7f 28%, #84d06d 100%);
-  border-color: rgba(83, 109, 52, 0.9);
+  background: linear-gradient(180deg, #edf9be 0%, #bfe876 30%, #84bf5d 100%);
+  border-color: rgba(84, 103, 52, 0.9);
   box-shadow:
     inset -14px -14px 0 rgba(120, 187, 88, 0.18),
     inset 12px 12px 0 rgba(255, 255, 255, 0.18),

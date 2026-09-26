@@ -1,8 +1,12 @@
+import { getHeroExpToNext } from "./player.js";
+
 export function createUiRefs() {
   return {
     goldDisplay: document.getElementById("goldDisplay"),
     stageDisplay: document.getElementById("stageDisplay"),
     rebirthDisplay: document.getElementById("rebirthDisplay"),
+    heroLevelDisplay: document.getElementById("heroLevelDisplay"),
+    heroExpDisplay: document.getElementById("heroExpDisplay"),
     inventoryDisplay: document.getElementById("inventoryDisplay"),
     audioToggle: document.getElementById("audioToggle"),
     enemyName: document.getElementById("enemyName"),
@@ -31,6 +35,19 @@ export function renderHud(ui, playerState, inventoryCount, collectionCount) {
   ui.stageDisplay.textContent = String(playerState.stage);
   ui.rebirthDisplay.textContent = String(playerState.rebirthCount || 0);
   ui.inventoryDisplay.textContent = String(inventoryCount || 0);
+
+  if (ui.heroLevelDisplay) {
+    ui.heroLevelDisplay.textContent = `Lv.${Math.max(1, Number(playerState.heroLevel) || 1)}`;
+  }
+
+  if (ui.heroExpDisplay) {
+    const heroLevel = Math.max(1, Number(playerState.heroLevel) || 1);
+    const expNeeded = getHeroExpToNext(heroLevel);
+    const currentExp = Math.max(0, Number(playerState.heroExp) || 0);
+    const ratio = Math.min(100, Math.max(0, (currentExp / expNeeded) * 100));
+    ui.heroExpDisplay.textContent = `${Math.round(ratio)}%`;
+  }
+
   if (ui.audioToggle) {
     ui.audioToggle.textContent = playerState.audioEnabled ? "ON" : "OFF";
     ui.audioToggle.classList.toggle("off", !playerState.audioEnabled);

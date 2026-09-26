@@ -1,5 +1,5 @@
 import { loadSave, saveGame } from "./save.js";
-import { buildPlayerState, buyUpgrade, equipEquipment, upgradeEquipment } from "./player.js";
+import { buildPlayerState, buyUpgrade, equipEquipment, upgradeEquipment, applyHeroGrowth } from "./player.js";
 import { createEnemyState } from "./enemy.js";
 import { handleEnemyDefeat } from "./item.js";
 import {
@@ -233,9 +233,17 @@ function onEnemyTap(event) {
     if (enemy.isBoss) {
       state.player.bossKills = (state.player.bossKills || 0) + 1;
     }
+
+    const expGain = Math.max(8, Math.round(enemy.stage * 7 + enemy.maxHp * 0.05));
+    const growth = applyHeroGrowth(state.player, expGain);
+    const growthText = growth.leveled ? ` / 勇者Lv.${state.player.heroLevel}に成長` : "";
+    if (growth.leveled) {
+      audio.play("upgrade");
+    }
+
     lastDropName = defeatResult.drop ? defeatResult.drop.name : "なし";
     const dropText = defeatResult.drop ? ` / ${defeatResult.drop.name}獲得` : "";
-    setHint(ui, `討伐成功！ +${defeatResult.goldGain}GOLD${dropText}`);
+    setHint(ui, `討伐成功！ +${defeatResult.goldGain}GOLD${dropText}${growthText}`);
     audio.play("defeat");
 
     enemy = createEnemyState(state.player.stage);

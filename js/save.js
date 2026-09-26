@@ -7,6 +7,8 @@ export function createDefaultSave() {
     player: {
       gold: 0,
       stage: 1,
+      heroLevel: 1,
+      heroExp: 0,
       rebirthCount: 0,
       rebirthPoints: 0,
       totalKills: 0,
@@ -60,6 +62,8 @@ export function loadSave() {
     safe.timestamp = Date.now();
     safe.player.gold = isValidNumber(parsed.player?.gold) ? parsed.player.gold : safe.player.gold;
     safe.player.stage = isValidNumber(parsed.player?.stage) ? Math.max(1, Math.round(parsed.player.stage)) : safe.player.stage;
+    safe.player.heroLevel = isValidNumber(parsed.player?.heroLevel) ? Math.max(1, Math.round(parsed.player.heroLevel)) : safe.player.heroLevel;
+    safe.player.heroExp = isValidNumber(parsed.player?.heroExp) ? Math.max(0, parsed.player.heroExp) : safe.player.heroExp;
     safe.player.rebirthCount = isValidNumber(parsed.player?.rebirthCount) ? Math.max(0, Math.round(parsed.player.rebirthCount)) : safe.player.rebirthCount;
     safe.player.rebirthPoints = isValidNumber(parsed.player?.rebirthPoints) ? Math.max(0, Math.round(parsed.player.rebirthPoints)) : safe.player.rebirthPoints;
     safe.player.totalKills = isValidNumber(parsed.player?.totalKills) ? Math.max(0, Math.round(parsed.player.totalKills)) : 0;
@@ -110,6 +114,8 @@ export function saveGame(state) {
       player: {
         gold: Number(state.player.gold) || 0,
         stage: Number(state.player.stage) || 1,
+        heroLevel: Math.max(1, Number(state.player.heroLevel) || 1),
+        heroExp: Math.max(0, Number(state.player.heroExp) || 0),
         rebirthCount: Number(state.player.rebirthCount) || 0,
         rebirthPoints: Number(state.player.rebirthPoints) || 0,
         totalKills: Number(state.player.totalKills) || 0,

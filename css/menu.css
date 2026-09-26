@@ -3,9 +3,25 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
   padding: 14px 16px 18px;
-  background: linear-gradient(180deg, rgba(17, 11, 8, 0.8), rgba(23, 17, 12, 0.9));
+  background: linear-gradient(180deg, rgba(24, 17, 13, 0.8), rgba(30, 21, 17, 0.9));
   border-top: 1px solid var(--border);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+@media (max-width: 420px) {
+  .action-bar {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    padding-left: 10px;
+    padding-right: 10px;
+    gap: 8px;
+  }
+
+  .action-btn {
+    min-height: 48px;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+  }
 }
 
 .action-btn {
@@ -13,10 +29,10 @@
   align-items: center;
   justify-content: center;
   min-height: 58px;
-  border: 1px solid rgba(179, 132, 74, 0.42);
+  border: 1px solid rgba(214, 181, 109, 0.42);
   border-radius: 16px;
   background:
-    linear-gradient(180deg, #614a3d 0%, #3d2d2a 18%, #231b18 100%);
+    linear-gradient(180deg, #7e5b40 0%, #573e30 18%, #281d1a 100%);
   color: var(--text);
   font-weight: 800;
   letter-spacing: 0.04em;
@@ -39,20 +55,20 @@
 }
 
 .action-btn.primary {
-  background: linear-gradient(180deg, #7b563f 0%, #4d342a 20%, #241a17 100%);
-  border-color: rgba(212,175,55,0.5);
+  background: linear-gradient(180deg, #8d693f 0%, #68482d 20%, #2a1e18 100%);
+  border-color: rgba(247, 217, 118, 0.6);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.08),
     inset 0 -8px 12px rgba(0,0,0,0.28),
     0 8px 0 rgba(18, 12, 10, 0.9),
-    0 0 18px rgba(212,175,55,0.12);
+    0 0 18px rgba(214, 181, 109, 0.12);
 }
 
 .action-btn.secondary {
-  background: linear-gradient(180deg, #50413c 0%, #2a1f1d 20%, #181210 100%);
+  background: linear-gradient(180deg, #5d4d42 0%, #2d241f 20%, #1b1411 100%);
 }
 
 .action-btn:hover {
-  border-color: rgba(212,175,55,0.55);
-  filter: brightness(1.05);
+  border-color: rgba(247, 217, 118, 0.7);
+  filter: brightness(1.06);
 }

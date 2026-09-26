@@ -5,6 +5,8 @@ export function buildPlayerState(savedState = {}) {
   const state = savedState.player ?? {
     gold: 0,
     stage: 1,
+    heroLevel: 1,
+    heroExp: 0,
     rebirthCount: 0,
     rebirthPoints: 0,
     totalKills: 0,
@@ -18,6 +20,8 @@ export function buildPlayerState(savedState = {}) {
   return {
     gold: Number(state.gold) || 0,
     stage: Number(state.stage) || 1,
+    heroLevel: Math.max(1, Number(state.heroLevel) || 1),
+    heroExp: Math.max(0, Number(state.heroExp) || 0),
     rebirthCount: Number(state.rebirthCount) || 0,
     rebirthPoints: Number(state.rebirthPoints) || 0,
     totalKills: Number(state.totalKills) || 0,
@@ -46,6 +50,45 @@ export function buildPlayerState(savedState = {}) {
   };
 }
 
+export function getHeroExpToNext(level = 1) {
+  return 45 + (Math.max(1, level) - 1) * 35;
+}
+
+export function applyHeroGrowth(playerState, gainedExp = 0) {
+  if (!Number.isFinite(gainedExp) || gainedExp <= 0) {
+    return { leveled: false, level: playerState.heroLevel, exp: playerState.heroExp };
+  }
+
+  const beforeLevel = Math.max(1, Number(playerState.heroLevel) || 1);
+  let currentLevel = beforeLevel;
+  let currentExp = Math.max(0, Number(playerState.heroExp) || 0);
+  let totalGain = gainedExp;
+
+  while (totalGain > 0) {
+    const needed = getHeroExpToNext(currentLevel);
+    const remaining = needed - currentExp;
+
+    if (totalGain < remaining) {
+      currentExp += totalGain;
+      totalGain = 0;
+      break;
+    }
+
+    totalGain -= remaining;
+    currentLevel += 1;
+    currentExp = 0;
+  }
+
+  playerState.heroLevel = currentLevel;
+  playerState.heroExp = currentExp;
+
+  return {
+    leveled: currentLevel > beforeLevel,
+    level: currentLevel,
+    exp: currentExp
+  };
+}
+
 export function getEquipmentBonus(playerState) {
   const bonus = { atk: 0, crit: 0, hp: 0 };
   const equipmentMap = Object.fromEntries(EQUIPMENT_LIBRARY.map((item) => [item.id, item]));
@@ -67,20 +110,23 @@ export function getEquipmentBonus(playerState) {
 export function getAttackPower(playerState) {
   const attackBonus = (playerState.upgrades.atk || 0) * 4;
   const permBonus = (playerState.permanentUpgrades.permAtkLevel || 0) * 6;
+  const heroBonus = (Math.max(1, Number(playerState.heroLevel) || 1) - 1) * 7;
   const equipmentBonus = getEquipmentBonus(playerState).atk;
-  return 12 + attackBonus + permBonus + equipmentBonus;
+  return 12 + attackBonus + permBonus + heroBonus + equipmentBonus;
 }
 
 export function getCritChance(playerState) {
   const critLevel = playerState.upgrades.crit || 0;
+  const heroBonus = (Math.max(1, Number(playerState.heroLevel) || 1) - 1) * 0.005;
   const equipmentBonus = getEquipmentBonus(playerState).crit;
-  return Math.min(0.5, 0.08 + critLevel * 0.025 + equipmentBonus * 0.01);
+  return Math.min(0.5, 0.08 + critLevel * 0.025 + heroBonus + equipmentBonus * 0.01);
 }
 
 export function getMaxHp(playerState) {
   const hpBonus = (playerState.upgrades.hp || 0) * 18;
+  const heroBonus = (Math.max(1, Number(playerState.heroLevel) || 1) - 1) * 24;
   const equipmentBonus = getEquipmentBonus(playerState).hp;
-  return 120 + hpBonus + equipmentBonus;
+  return 120 + hpBonus + heroBonus + equipmentBonus;
 }
 
 export function buyUpgrade(playerState, key) {

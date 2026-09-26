@@ -1,26 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Metamorphous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Metamorphous&family=Noto+Serif+JP:wght@400;500;700;900&display=swap');
 
 :root {
-  --bg-0: #1a110a;
-  --bg-1: #2a1d16;
-  --bg-2: #3a2e2b;
-  --bg-3: #120d0a;
-  --parchment: #4d382d;
-  --parchment-light: #5a433a;
-  --iron: #3a2e2b;
-  --iron-deep: #1d1513;
-  --gold: #d4af37;
-  --gold-soft: #f2d98a;
-  --blood: #8b0000;
-  --blood-bright: #c92b2b;
-  --ember: #d56a2d;
-  --text: #f4e2bf;
-  --text-soft: #d5bd8d;
-  --muted: #b39a73;
-  --panel: rgba(29, 20, 17, 0.9);
-  --panel-strong: rgba(20, 14, 11, 0.96);
-  --panel-soft: rgba(40, 29, 22, 0.88);
-  --border: rgba(198, 162, 105, 0.28);
+  --bg-0: #1d1917;
+  --bg-1: #3a2a22;
+  --bg-2: #5a3d2d;
+  --bg-3: #171412;
+  --wood: #7b4d35;
+  --wood-deep: #473027;
+  --wood-soft: #a96d4b;
+  --grass: #89c35d;
+  --grass-deep: #5d8d3d;
+  --gold: #d9b35d;
+  --gold-soft: #f5e7ad;
+  --gold-deep: #9d7b2f;
+  --moss: #c8d9a0;
+  --blood: #9e3d2d;
+  --blood-bright: #d45d43;
+  --ember: #d98842;
+  --text: #f5ead0;
+  --text-soft: #e7d7ae;
+  --muted: #c7b58c;
+  --panel: rgba(48, 33, 23, 0.9);
+  --panel-strong: rgba(30, 21, 18, 0.96);
+  --panel-soft: rgba(73, 56, 44, 0.88);
+  --border: rgba(214, 181, 109, 0.32);
   --shadow: rgba(0, 0, 0, 0.56);
   --common: #d7c9ae;
   --uncommon: #7ccf8e;
@@ -37,18 +40,28 @@ html, body {
   margin: 0;
   min-height: 100%;
   background:
-    radial-gradient(circle at 20% 16%, rgba(126, 78, 48, 0.28), transparent 22%),
-    radial-gradient(circle at 80% 12%, rgba(133, 40, 19, 0.16), transparent 20%),
-    linear-gradient(180deg, var(--bg-0) 0%, var(--bg-3) 100%);
+    radial-gradient(circle at 20% 16%, rgba(137, 195, 93, 0.18), transparent 24%),
+    radial-gradient(circle at 80% 12%, rgba(217, 179, 93, 0.14), transparent 22%),
+    linear-gradient(180deg, #201b18 0%, #312621 18%, #1a1411 42%, #110f0d 100%);
   color: var(--text);
-  font-family: "Segoe UI", "Hiragino Sans", "Yu Gothic", sans-serif;
+  font-family: "Noto Serif JP", "Segoe UI", "Hiragino Sans", sans-serif;
+}
+
+:root {
+  --app-height: 100vh;
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --app-height: 100dvh;
+  }
 }
 
 body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: var(--app-height);
   position: relative;
   overflow-x: hidden;
 }
@@ -83,18 +96,17 @@ button {
 .game-shell {
   position: relative;
   width: min(100vw, 520px);
-  height: 100vh;
+  height: min(var(--app-height), 940px);
   max-height: 940px;
-  min-height: 680px;
   display: flex;
   flex-direction: column;
   background:
-    linear-gradient(180deg, rgba(44, 30, 23, 0.96), rgba(18, 12, 9, 0.99)),
+    linear-gradient(180deg, rgba(83, 59, 44, 0.96), rgba(26, 18, 14, 0.99)),
     linear-gradient(140deg, rgba(255,255,255,0.04), transparent 35%);
-  border: 2px solid rgba(158, 121, 83, 0.45);
+  border: 2px solid rgba(216, 183, 97, 0.4);
   box-shadow:
     0 30px 60px rgba(0,0,0,0.55),
-    inset 0 2px 0 rgba(255,255,255,0.06),
+    inset 0 2px 0 rgba(255,255,255,0.08),
     inset 0 -10px 18px rgba(0,0,0,0.25);
   overflow: hidden;
 }
@@ -114,9 +126,9 @@ button {
   align-items: center;
   gap: 12px;
   padding: 14px 14px 12px;
-  background: rgba(18, 12, 9, 0.76);
+  background: linear-gradient(180deg, rgba(77, 52, 36, 0.96), rgba(26, 17, 13, 0.94));
   border-bottom: 1px solid var(--border);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 8px 18px rgba(0,0,0,0.15);
 }
 
 .stat-card {
@@ -127,10 +139,10 @@ button {
   padding: 8px 12px;
   border-radius: 16px;
   background:
-    linear-gradient(180deg, rgba(58, 46, 43, 0.95), rgba(24, 17, 13, 0.96));
-  border: 1px solid rgba(196, 150, 75, 0.35);
+    linear-gradient(180deg, rgba(105, 71, 49, 0.9), rgba(31, 21, 17, 0.96));
+  border: 1px solid rgba(216, 183, 97, 0.32);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.08),
     inset 0 -8px 12px rgba(0,0,0,0.18),
     0 8px 18px rgba(0,0,0,0.18);
 }
@@ -185,7 +197,7 @@ button {
 
 .hud-strip {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
   padding: 13px 14px 0;
 }
@@ -251,11 +263,11 @@ button {
   padding: 18px 18px 14px;
   border-radius: 30px;
   background:
-    radial-gradient(circle at 50% 18%, rgba(158, 112, 78, 0.18), transparent 26%),
-    linear-gradient(180deg, rgba(35, 25, 19, 0.96), rgba(12, 9, 7, 0.98));
-  border: 2px solid rgba(174, 132, 82, 0.38);
+    radial-gradient(circle at 50% 18%, rgba(180, 131, 88, 0.2), transparent 26%),
+    linear-gradient(180deg, rgba(49, 37, 29, 0.96), rgba(15, 11, 9, 0.99));
+  border: 2px solid rgba(216, 183, 97, 0.35);
   box-shadow:
-    inset 0 0 0 2px rgba(87, 63, 45, 0.7),
+    inset 0 0 0 2px rgba(111, 83, 62, 0.72),
     inset 0 18px 22px rgba(255,255,255,0.02),
     0 22px 32px rgba(0,0,0,0.2);
 }
@@ -551,6 +563,21 @@ button {
 }
 
 @media (max-width: 420px) {
+  body {
+    align-items: flex-start;
+  }
+
+  .game-shell {
+    width: 100vw;
+    max-width: none;
+    height: var(--app-height);
+    max-height: none;
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid rgba(216, 183, 97, 0.4);
+    border-bottom: 1px solid rgba(216, 183, 97, 0.4);
+  }
+
   .topbar {
     gap: 8px;
     padding-left: 10px;
@@ -559,5 +586,29 @@ button {
 
   .title-card {
     letter-spacing: 0.04em;
+  }
+
+  .battle-area {
+    padding: 8px 10px 8px;
+  }
+
+  .enemy-panel {
+    min-height: 260px;
+    gap: 10px;
+    padding: 12px 12px 10px;
+  }
+
+  .action-bar {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    padding-left: 10px;
+    padding-right: 10px;
+    gap: 8px;
+  }
+
+  .action-btn {
+    min-height: 48px;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
   }
 }
