@@ -1,111 +1,112 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-<meta name="theme-color" content="#111827">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Tap Hunter">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon.png">
-<title>Tap Hunter</title>
-<style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080b12;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-body{touch-action:manipulation}
-#app{height:100%;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);display:flex;flex-direction:column;background:radial-gradient(circle at 50% 35%,#20283a 0,#0c1019 45%,#05070b 100%)}
-header{height:76px;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;flex:none}
-.stat{min-width:78px}.label{font-size:11px;color:#9da7ba}.value{font-size:22px;font-weight:800}
-#game{position:relative;flex:1;overflow:hidden;margin:0 10px 10px;border:1px solid #30394a;border-radius:24px;background:linear-gradient(#111827,#0b0f18);box-shadow:inset 0 0 70px #0008}
-#hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#aab3c5;text-align:center;pointer-events:none;font-size:15px;z-index:2}
-.enemy{position:absolute;width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:37px;user-select:none;cursor:pointer;filter:drop-shadow(0 7px 10px #0008);animation:pop .13s ease-out}
-.enemy::after{content:"";position:absolute;inset:-6px;border:2px solid #ffffff33;border-radius:50%}
-@keyframes pop{from{transform:scale(.35);opacity:.2}to{transform:scale(1);opacity:1}}
-.hit{position:absolute;font-size:24px;font-weight:900;color:#fff;pointer-events:none;animation:hit .45s ease-out forwards;z-index:5;text-shadow:0 2px 8px #000}
-@keyframes hit{0%{transform:translate(-50%,-50%) scale(.7);opacity:1}100%{transform:translate(-50%,-110px) scale(1.1);opacity:0}}
-#overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#05070bd9;z-index:10;padding:24px}
-.panel{width:min(360px,100%);background:#171d29;border:1px solid #3a4558;border-radius:24px;padding:26px;text-align:center;box-shadow:0 20px 60px #0009}
-h1{margin:0 0 8px;font-size:34px}.sub{color:#aeb7c7;margin:0 0 22px}
-button{width:100%;min-height:54px;border:0;border-radius:15px;background:#fff;color:#10131a;font-size:17px;font-weight:800}
-#restart{display:none}
-#combo{color:#ffd166}
-</style>
-</head>
-<body>
-<div id="app">
-<header>
-  <div class="stat"><div class="label">SCORE</div><div id="score" class="value">0</div></div>
-  <div class="stat"><div class="label">COMBO</div><div id="combo" class="value">0</div></div>
-  <div class="stat"><div class="label">TIME</div><div id="time" class="value">30</div></div>
-</header>
-<main id="game">
-  <div id="hint">STARTを押して<br>敵をタップ！</div>
-  <div id="overlay">
-    <div class="panel">
-      <h1>⚔️ Tap Hunter</h1>
-      <p class="sub">出てくる敵をタップして倒そう</p>
-      <div id="final" style="display:none;margin-bottom:18px;font-size:22px;font-weight:800"></div>
-      <button id="start">START</button>
-      <button id="restart">もう一度遊ぶ</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#0d0f12" />
+    <link rel="manifest" href="./manifest.json" />
+    <title>TAP HUNTER</title>
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/battle.css" />
+    <link rel="stylesheet" href="./css/menu.css" />
+    <link rel="stylesheet" href="./css/animation.css" />
+  </head>
+  <body>
+    <div class="game-shell">
+      <header class="topbar">
+        <div class="stat-card gold-card">
+          <span class="stat-label">GOLD</span>
+          <strong id="goldDisplay">0</strong>
+        </div>
+
+        <div class="title-card">
+          <span class="title-mark">⚔</span>
+          <span>TAP HUNTER</span>
+        </div>
+
+        <div class="stat-card stage-card">
+          <span class="stat-label">STAGE</span>
+          <strong id="stageDisplay">1</strong>
+        </div>
+      </header>
+
+      <section class="hud-strip" aria-label="ゲーム情報">
+        <div class="mini-card">
+          <span>転生</span>
+          <strong id="rebirthDisplay">0</strong>
+        </div>
+        <div class="mini-card">
+          <span>所持</span>
+          <strong id="inventoryDisplay">0</strong>
+        </div>
+        <div class="mini-card audio-box">
+          <span>音声</span>
+          <button id="audioToggle" class="audio-toggle" type="button">ON</button>
+        </div>
+      </section>
+
+      <main class="battle-area" id="battleArea">
+        <div class="enemy-panel">
+          <div class="enemy-header">
+            <span id="enemyName">ゴブリン</span>
+            <span id="enemyLevel">Lv.1</span>
+          </div>
+
+          <button id="enemyButton" class="enemy-button goblin" type="button" aria-label="敵を攻撃">
+            <span class="enemy-shadow"></span>
+            <span class="enemy-body">
+              <span class="ear left"></span>
+              <span class="ear right"></span>
+              <span class="eye left"></span>
+              <span class="eye right"></span>
+              <span class="nose"></span>
+              <span class="mouth"></span>
+              <span class="weapon"></span>
+            </span>
+          </button>
+
+          <div class="hp-box">
+            <div class="hp-meta">
+              <span>HP</span>
+              <span id="hpText">120 / 120</span>
+            </div>
+            <div class="hp-bar">
+              <div id="hpFill" class="hp-fill"></div>
+            </div>
+          </div>
+
+          <div class="info-stack">
+            <div id="dropBadge" class="drop-badge">ドロップ: なし</div>
+            <div id="collectionPreview" class="collection-preview" aria-live="polite"></div>
+          </div>
+
+          <div id="battleHint" class="battle-hint">敵をタップして攻撃！</div>
+        </div>
+
+        <div id="damageLayer" class="damage-layer" aria-live="polite"></div>
+      </main>
+
+      <nav class="action-bar" aria-label="メニュー">
+        <button class="action-btn primary" data-upgrade="atk" type="button">⚔ 攻撃</button>
+        <button class="action-btn" data-upgrade="crit" type="button">💥 会心</button>
+        <button class="action-btn" data-upgrade="hp" type="button">🛡 体力</button>
+        <button class="action-btn secondary" id="equipmentBtn" type="button">⚙ 装備</button>
+        <button class="action-btn secondary" id="saveBtn" type="button">💾 保存</button>
+        <button class="action-btn secondary" id="rebirthBtn" type="button">♻ 転生</button>
+        <button class="action-btn secondary" id="collectionBtn" type="button">📖 詳細</button>
+      </nav>
     </div>
-  </div>
-</main>
-</div>
-<script>
-(() => {
-  const game=document.getElementById('game'), scoreEl=document.getElementById('score'),
-        comboEl=document.getElementById('combo'), timeEl=document.getElementById('time'),
-        overlay=document.getElementById('overlay'), start=document.getElementById('start'),
-        restart=document.getElementById('restart'), hint=document.getElementById('hint'),
-        final=document.getElementById('final');
-  let score=0,combo=0,time=30,running=false,timer=null,spawnTimer=null;
-  const emojis=['👾','👹','🤖','💀','🧟'];
-  function reset(){
-    game.querySelectorAll('.enemy,.hit').forEach(e=>e.remove());
-    score=0;combo=0;time=30;update();
-  }
-  function update(){scoreEl.textContent=score;comboEl.textContent=combo;timeEl.textContent=time}
-  function spawn(){
-    if(!running)return;
-    const e=document.createElement('div'); e.className='enemy';
-    e.textContent=emojis[Math.floor(Math.random()*emojis.length)];
-    const rect=game.getBoundingClientRect(), size=72;
-    e.style.left=(Math.random()*(rect.width-size-16)+8)+'px';
-    e.style.top=(Math.random()*(rect.height-size-16)+8)+'px';
-    e.addEventListener('pointerdown',(ev)=>{
-      ev.preventDefault();
-      if(!running)return;
-      score += 10 + Math.min(combo,20);
-      combo++;
-      const r=e.getBoundingClientRect(), gr=game.getBoundingClientRect();
-      const h=document.createElement('div');h.className='hit';h.textContent='+'+(10+Math.min(combo-1,20));
-      h.style.left=(r.left-gr.left+r.width/2)+'px';h.style.top=(r.top-gr.top+r.height/2)+'px';
-      game.appendChild(h); setTimeout(()=>h.remove(),500);
-      e.remove(); update();
-    },{passive:false});
-    game.appendChild(e);
-    setTimeout(()=>{if(e.isConnected){e.remove();combo=0;update()}},1100);
-  }
-  function end(){
-    running=false;clearInterval(timer);clearTimeout(spawnTimer);
-    game.querySelectorAll('.enemy').forEach(e=>e.remove());
-    hint.style.display='none'; overlay.style.display='flex';
-    final.style.display='block';final.textContent='SCORE  '+score;
-    start.style.display='none';restart.style.display='block';
-  }
-  function loop(){
-    if(!running)return;
-    spawn();
-    spawnTimer=setTimeout(loop,Math.max(280,720-(30-time)*10));
-  }
-  function begin(){
-    reset();running=true;overlay.style.display='none';hint.style.display='none';
-    timer=setInterval(()=>{time--;update();if(time<=0)end()},1000);loop();
-  }
-  start.addEventListener('click',begin);restart.addEventListener('click',begin);
-  update();
-})();
-</script>
-</body>
+
+    <div id="modalLayer" class="modal-layer hidden" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true">
+        <div class="modal-header">
+          <h3 id="modalTitle">図鑑</h3>
+          <button id="closeModal" class="close-modal" type="button" aria-label="閉じる">✕</button>
+        </div>
+        <div id="modalBody" class="modal-body"></div>
+      </div>
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
 </html>

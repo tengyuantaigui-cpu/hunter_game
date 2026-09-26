@@ -1,0 +1,250 @@
+.enemy-button {
+  position: relative;
+  width: min(72vw, 320px);
+  height: min(54vw, 220px);
+  border: none !important;
+  border-radius: 32px;
+  background: none !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  transition: transform 0.08s ease, filter 0.12s ease;
+  user-select: none;
+  touch-action: manipulation;
+  will-change: transform;
+  filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.22));
+}
+
+.enemy-button:active {
+  transform: scale(0.96) rotate(-2deg);
+}
+
+.enemy-button:hover {
+  filter: brightness(1.06) drop-shadow(0 16px 18px rgba(0, 0, 0, 0.22));
+}
+
+.enemy-button .enemy-shadow {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: -8px;
+  height: 26px;
+  background: rgba(25, 22, 18, 0.26);
+  border-radius: 50%;
+  filter: blur(6px);
+  z-index: 0;
+}
+
+.enemy-button .ear,
+.enemy-button .eye,
+.enemy-button .nose,
+.enemy-button .mouth,
+.enemy-button .weapon {
+  display: block;
+  position: absolute;
+  z-index: 4;
+}
+
+.enemy-body {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 42% 42% 36% 36% / 26% 26% 74% 74%;
+  overflow: visible;
+  background:
+    linear-gradient(180deg, #d6f2a3 0%, #a9d36b 28%, #7baa52 100%);
+  border: 4px solid rgba(70, 93, 39, 0.9);
+  box-shadow:
+    inset -14px -14px 0 rgba(110, 146, 65, 0.18),
+    inset 12px 12px 0 rgba(255, 255, 255, 0.16),
+    0 18px 28px rgba(0, 0, 0, 0.2);
+  clip-path: none !important;
+  transform-origin: center bottom;
+  animation: slimeCuteBob 3s ease-in-out infinite alternate;
+}
+
+.enemy-button.slime .enemy-body {
+  border-radius: 56% 44% 52% 48% / 46% 54% 46% 54%;
+  background: linear-gradient(180deg, #dffbaf 0%, #b1ec7f 28%, #84d06d 100%);
+  border-color: rgba(83, 109, 52, 0.9);
+  box-shadow:
+    inset -14px -14px 0 rgba(120, 187, 88, 0.18),
+    inset 12px 12px 0 rgba(255, 255, 255, 0.18),
+    0 20px 28px rgba(0, 0, 0, 0.22);
+}
+
+.enemy-button.slime .enemy-body::before {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: -10%;
+  height: 26%;
+  background: rgba(97, 140, 66, 0.25);
+  border-radius: 50%;
+  filter: blur(8px);
+  z-index: 0;
+}
+
+.enemy-button.slime .ear {
+  display: none;
+}
+
+.enemy-button.slime .eye {
+  width: 15px;
+  height: 18px;
+  top: 39%;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.18);
+}
+
+.enemy-button.slime .eye.left { left: 33%; }
+.enemy-button.slime .eye.right { right: 33%; }
+
+.enemy-button.slime .mouth {
+  width: 52px;
+  height: 24px;
+  top: 49%;
+  border-bottom-width: 5px;
+}
+
+.enemy-button.slime .weapon {
+  top: 30%;
+  left: -12px;
+  transform: rotate(-30deg);
+}
+
+.enemy-body::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4%;
+  width: 62%;
+  height: 42%;
+  background: linear-gradient(180deg, #7a8c4a 0%, #546a35 100%);
+  border-radius: 34% 34% 44% 44%;
+  transform: translateX(-50%);
+  z-index: 1;
+  border: 3px solid rgba(55, 71, 31, 0.9);
+}
+
+.enemy-body::after {
+  content: "";
+  position: absolute;
+  left: 12%;
+  top: 10%;
+  width: 22%;
+  height: 24%;
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.7), rgba(255,255,255,0) 60%);
+  border-radius: 50%;
+  filter: blur(8px);
+  opacity: 0.7;
+}
+
+.enemy-button .ear {
+  width: 20px;
+  height: 26px;
+  top: 2%;
+  background: linear-gradient(180deg, #b7d76d, #7baa52);
+  border: 4px solid rgba(62, 80, 35, 0.9);
+  z-index: 2;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.enemy-button .ear.left { left: 18%; transform: rotate(-18deg); }
+.enemy-button .ear.right { right: 18%; transform: rotate(18deg); }
+
+.enemy-button .eye {
+  width: 16px;
+  height: 18px;
+  border-radius: 50%;
+  background: #2d1b12;
+  top: 34%;
+  box-shadow: inset 0 0 0 3px rgba(255,255,255,0.25);
+}
+
+.enemy-button .eye.left { left: 35%; }
+.enemy-button .eye.right { right: 35%; }
+
+.enemy-button .eye::after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.8);
+  top: 4px;
+  left: 4px;
+}
+
+.enemy-button .nose {
+  left: 50%;
+  top: 42%;
+  width: 8px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(94, 66, 35, 0.6);
+  transform: translateX(-50%);
+}
+
+.enemy-button .mouth {
+  left: 50%;
+  top: 48%;
+  width: 54px;
+  height: 26px;
+  border-bottom: 4px solid rgba(60, 38, 21, 0.9);
+  border-radius: 0 0 28px 28px;
+  transform: translateX(-50%);
+}
+
+.enemy-button .weapon {
+  left: -10px;
+  top: 25%;
+  width: 94px;
+  height: 16px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #d9e3ea 0%, #9fb7c6 18%, #dfeaf0 38%, #8fa4b5 100%);
+  border: 4px solid rgba(81, 98, 108, 0.9);
+  transform: rotate(-34deg);
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.4);
+}
+
+.enemy-button .weapon::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 20px;
+  left: 12px;
+  top: -4px;
+  background: linear-gradient(180deg, #8e6944, #5a3d20);
+  border-radius: 6px;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
+}
+
+.enemy-button .weapon::after {
+  content: "";
+  position: absolute;
+  right: -16px;
+  top: -7px;
+  width: 0;
+  height: 0;
+  border-left: 18px solid #dfeaf0;
+  border-top: 13px solid transparent;
+  border-bottom: 13px solid transparent;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.25));
+}
+
+.enemy-button.orc .enemy-body {
+  background: linear-gradient(180deg, #b2d078, #7aa159 42%, #537e42 100%);
+  border-color: rgba(56, 67, 35, 0.9);
+}
+
+.enemy-button.boss .enemy-body {
+  background: linear-gradient(180deg, #ffdf7c, #f4a958 38%, #d06a3d 100%);
+  border-color: rgba(93, 48, 26, 0.95);
+}
+
+.enemy-button:focus-visible {
+  outline: 3px solid rgba(212,175,55,0.85);
+  outline-offset: 4px;
+}
